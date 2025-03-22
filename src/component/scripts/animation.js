@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import tokens from '../tokens/utils/tokenUtils.js';
 import { extractMs } from './utils.js';
 
-export const useAccordionAnimation = (customDuration = null, customTransitionDuration = null) => {
+export const useListCellAnimation = (customDuration = null, customTransitionDuration = null) => {
   const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
@@ -14,11 +14,10 @@ export const useAccordionAnimation = (customDuration = null, customTransitionDur
       } else if (customDuration) {
         animationDuration = extractMs(customDuration);
       } else {
-        animationDuration = extractMs(tokens.ACCORDION_TRANSITION_DURATION) ||
-                          parseInt(tokens.ACCORDION_ANIMATION_DURATION);
+        animationDuration = extractMs(tokens.LIST_CELL_DURATION_M);
       }
 
-      const durationWithBuffer = animationDuration + 100;
+      const durationWithBuffer = animationDuration + 50;
 
       const timer = setTimeout(() => {
         setIsAnimating(false);
@@ -29,51 +28,59 @@ export const useAccordionAnimation = (customDuration = null, customTransitionDur
   }, [isAnimating, customDuration, customTransitionDuration]);
 
   const startAnimation = () => setIsAnimating(true);
-
   const stopAnimation = () => setIsAnimating(false);
 
   return [isAnimating, startAnimation, stopAnimation];
 };
 
-export const getAccordionTransitionConfig = (tokens) => ({
-  type: "tween",
-  duration: extractMs(tokens.ACCORDION_TRANSITION_DURATION) / 1000,
-  ease: tokens.ACCORDION_TRANSITION_EASING
-});
-
-export const getArrowAnimationConfig = (tokens) => ({
+export const getHoverAnimationConfig = (tokens) => ({
   transition: {
-    duration: extractMs(tokens.ACCORDION_ARROW_ROTATION_DURATION) / 1000,
-    ease: tokens.ACCORDION_ARROW_ROTATION_EASING,
-    type: "spring",
-    stiffness: tokens.ACCORDION_ARROW_STIFFNESS,
-    damping: tokens.ACCORDION_ARROW_DAMPING,
-    mass: tokens.ACCORDION_ARROW_MASS
+    duration: extractMs(tokens.LIST_CELL_HOVER_DURATION) / 1000,
+    ease: tokens.LIST_CELL_EASING_STANDARD,
+    type: "tween"
   }
 });
 
-export const getContentAnimationConfig = (tokens) => ({
-  initial: { height: 0, opacity: 0 },
-  animate: { height: "auto", opacity: 1 },
-  exit: { height: 0, opacity: 0 },
+export const getTapAnimationConfig = (tokens) => ({
   transition: {
-    height: {
-      duration: extractMs(tokens.ACCORDION_CONTENT_TRANSITION_DURATION) / 1000,
-      ease: "easeInOut",
-      type: "tween"
-    },
-    opacity: {
-      duration: extractMs(tokens.ACCORDION_CONTENT_OPACITY_DURATION) / 1000,
-      ease: tokens.ACCORDION_CONTENT_OPACITY_EASING
-    }
-  },
-  style: { overflow: "hidden" }
+    duration: extractMs(tokens.LIST_CELL_TAP_DURATION) / 1000,
+    ease: tokens.LIST_CELL_EASING_SPRING,
+    type: "spring",
+    stiffness: tokens.LIST_CELL_STIFFNESS,
+    damping: tokens.LIST_CELL_DAMPING,
+    mass: tokens.LIST_CELL_MASS
+  }
+});
+
+export const getRadioAnimationConfig = (tokens) => ({
+  initial: { scale: 0 },
+  animate: { scale: 1 },
+  exit: { scale: 0 },
+  transition: {
+    duration: extractMs(tokens.LIST_CELL_RADIO_DURATION) / 1000,
+    ease: tokens.LIST_CELL_EASING_SPRING,
+    type: "spring",
+    stiffness: tokens.LIST_CELL_STIFFNESS,
+    damping: tokens.LIST_CELL_DAMPING,
+    mass: tokens.LIST_CELL_MASS
+  }
+});
+
+export const getAvatarAnimationConfig = (tokens) => ({
+  initial: { scale: 1, rotate: 0 },
+  hover: { scale: 1.05, rotate: 5 },
+  transition: {
+    duration: extractMs(tokens.LIST_CELL_AVATAR_DURATION) / 1000,
+    ease: tokens.LIST_CELL_EASING_STANDARD,
+    type: "tween"
+  }
 });
 
 // For creating static exports, get tokens at module load time
 const staticTokens = tokens;
 
 // Export pre-configured animations with current CSS variable values
-export const accordionAnimationConfig = getAccordionTransitionConfig(staticTokens);
-export const arrowAnimation = getArrowAnimationConfig(staticTokens);
-export const contentAnimation = getContentAnimationConfig(staticTokens);
+export const hoverAnimation = getHoverAnimationConfig(staticTokens);
+export const tapAnimation = getTapAnimationConfig(staticTokens);
+export const radioAnimation = getRadioAnimationConfig(staticTokens);
+export const avatarAnimation = getAvatarAnimationConfig(staticTokens);

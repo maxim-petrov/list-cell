@@ -1,0 +1,256 @@
+.list-cell-root-0ea-2-2-1 .list-cell-highlightMatchRoot-160-2-2-1 .list-cell-matched-ec3-2-2-1 {
+    font: 500 16px/20px SBSans,sans-serif
+}
+
+.list-cell-highlightMatchRoot-160-2-2-1,.list-cell-highlightMatchRoot-160-2-2-1 .list-cell-matched-ec3-2-2-1 {
+    letter-spacing: normal;
+    letter-spacing: -.32px;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    text-indent: 0;
+    text-shadow: none;
+    text-transform: none
+}
+
+.list-cell-highlightMatchRoot-160-2-2-1 {
+    color: var(--color_text_primary,#262626);
+    font: 400 16px/20px SBSans,sans-serif
+}
+
+.list-cell-highlightMatchRoot-160-2-2-1 .list-cell-piece-fa2-2-2-1 {
+    background: #0000;
+    color: var(--color_text_secondary,#738295)
+}
+
+.list-cell-highlightMatchRoot-160-2-2-1 .list-cell-matched-ec3-2-2-1 {
+    color: var(--color_text_primary,#262626)
+}
+
+.list-cell-root-0ea-2-2-1 .list-cell-subtitle-bb8-2-2-1,.list-cell-root-0ea-2-2-1 .list-cell-title-64d-2-2-1 {
+    color: var(--color_text_primary,#262626);
+    font: 400 16px/20px SBSans,sans-serif;
+    letter-spacing: normal;
+    letter-spacing: -.32px;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    text-indent: 0;
+    text-shadow: none;
+    text-transform: none
+}
+
+.list-cell-root-0ea-2-2-1 {
+    align-items: center;
+    background-color: var(--color_bg_control_primary_default,#fff);
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    min-width: 180px;
+    outline: 4px solid #0000;
+    padding: 14px 4px;
+    position: relative;
+    transition: background-color .15s;
+    width: 100%;
+    overflow: hidden;
+}
+
+@media (-ms-high-contrast:active),(hover: hover),all and (-ms-high-contrast:none) {
+    .list-cell-root-0ea-2-2-1:not(.list-cell-withControls-744-2-2-1):not(.list-cell-disabled-1b0-2-2-1):hover {
+        background-color:var(--color_bg_control_primary_hover,#f6f7f9)
+    }
+}
+
+.list-cell-root-0ea-2-2-1:not(.list-cell-withControls-744-2-2-1):not(.list-cell-disabled-1b0-2-2-1):active {
+    background-color: var(--color_bg_control_primary_active,#dedfe3)
+}
+
+.list-cell-root-0ea-2-2-1:not(.list-cell-withControls-744-2-2-1):not(.list-cell-disabled-1b0-2-2-1).list-cell-selected-0f3-2-2-1 {
+    background-color: var(--color_bg_control_primary_selected,#e0e4e9)
+}
+
+.list-cell-root-0ea-2-2-1:not(.list-cell-withControls-744-2-2-1):not(.list-cell-disabled-1b0-2-2-1).list-cell-focused-df3-2-2-1 {
+    background-color: var(--color_bg_control_primary_hover,#f6f7f9)
+}
+
+.list-cell-root-0ea-2-2-1.list-cell-small-9e1-2-2-1 {
+    padding-bottom: 10px;
+    padding-top: 10px
+}
+
+.list-cell-root-0ea-2-2-1.list-cell-p-null-97d-2-2-1 {
+    padding-left: 0;
+    padding-right: 0
+}
+
+.list-cell-root-0ea-2-2-1.list-cell-p-small-0a8-2-2-1 {
+    padding-left: 4px;
+    padding-right: 4px
+}
+
+.list-cell-root-0ea-2-2-1.list-cell-p-medium-707-2-2-1 {
+    padding-left: 16px;
+    padding-right: 16px
+}
+
+.list-cell-root-0ea-2-2-1 .list-cell-wrapper-1a8-2-2-1 {
+    align-items: center;
+    display: flex;
+    font-size: 16px
+}
+
+.list-cell-root-0ea-2-2-1.list-cell-withLongText-f6b-2-2-1,.list-cell-root-0ea-2-2-1.list-cell-withLongText-f6b-2-2-1 .list-cell-wrapper-1a8-2-2-1 {
+    align-items: flex-start
+}
+
+.list-cell-root-0ea-2-2-1 .list-cell-leftSide-8c8-2-2-1,.list-cell-root-0ea-2-2-1 .list-cell-rightSide-e72-2-2-1 {
+    color: var(--color_text_primary,#262626);
+    color: var(--color_icon_secondary_default,#8593a5);
+    display: flex;
+    font: 500 14px/18px SBSans,sans-serif;
+    letter-spacing: normal;
+    letter-spacing: -.28px;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    text-indent: 0;
+    text-shadow: none;
+    text-transform: none;
+    -webkit-user-select: none;
+    user-select: none
+}
+
+.list-cell-root-0ea-2-2-1 .list-cell-leftSide-8c8-2-2-1 {
+    margin-right: 8px
+}
+
+.list-cell-root-0ea-2-2-1 .list-cell-rightSide-e72-2-2-1 {
+    margin-left: 8px
+}
+
+.list-cell-root-0ea-2-2-1 .list-cell-title-64d-2-2-1 {
+    align-self: center;
+    -webkit-user-select: none;
+    user-select: none
+}
+
+.list-cell-root-0ea-2-2-1 .list-cell-subtitle-bb8-2-2-1 {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    color: var(--color_text_secondary,#738295);
+    display: -webkit-box;
+    flex-grow: 1;
+    font-size: 14px;
+    margin-top: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word
+}
+
+.list-cell-root-0ea-2-2-1.list-cell-divider-dca-2-2-1:after {
+    background-color: var(--color_component_divider_default,#d5d8dc);
+    bottom: 0;
+    content: "";
+    height: 1px;
+    left: 0;
+    position: absolute;
+    right: 0
+}
+
+.list-cell-root-0ea-2-2-1.list-cell-disabled-1b0-2-2-1 {
+    cursor: default
+}
+
+.list-cell-root-0ea-2-2-1.list-cell-disabled-1b0-2-2-1 .list-cell-title-64d-2-2-1 {
+    color: var(--color_text_disabled,rgba(0,0,0,.322))
+}
+
+.list-cell-root-0ea-2-2-1.list-cell-disabled-1b0-2-2-1 .list-cell-leftSide-8c8-2-2-1,.list-cell-root-0ea-2-2-1.list-cell-disabled-1b0-2-2-1 .list-cell-rightSide-e72-2-2-1 {
+    color: var(--color_icon_disabled,rgba(0,0,0,.322))
+}
+
+/* Checkbox custom styles */
+.checkbox-root-09c-9-1-0 {
+    display: inline-flex;
+    cursor: pointer;
+    align-items: center;
+    position: relative;
+}
+
+.checkbox-input-688-9-1-0 {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.checkbox-iconContainer-80d-9-1-0 {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    border: 2px solid var(--color_icon_secondary_default, #8593a5);
+    background: var(--color_bg_control_primary_default, #fff);
+    transition: all 0.2s ease;
+}
+
+.checkbox-checked-b61-9-1-0 .checkbox-iconContainer-80d-9-1-0 {
+    border-color: var(--color_accent_primary, #0071E1);
+    background: var(--color_accent_primary, #0071E1);
+}
+
+.checkbox-icon-044-9-1-0 {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Avatar custom styles */
+.avtr-root-912-1-1-4 {
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.avtr-small-b73-1-1-4 {
+    width: 40px;
+    height: 40px;
+}
+
+.avtr-circle-5ee-1-1-4 {
+    border-radius: 50%;
+}
+
+.avtr-inner-125-1-1-4 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avtr-primary-9ed-1-1-4 {
+    background-color: var(--color_accent_primary_alpha8, rgba(0, 113, 225, 0.08));
+}
+
+.picture-picture-f61-4-0-1 {
+    position: relative;
+    overflow: hidden;
+    display: block;
+}
+
+.picture-pictureContent-486-4-0-1 {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.picture-image-object-fit--cover-820-4-0-1 {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+} 

@@ -1,36 +1,65 @@
 @use '../tokens/utils/tokenUtils' as *;
 
-.acr-wrapTop-79f-12-2-0 {
-  transition: color $ACCORDION_TRANSITION_DURATION $ACCORDION_TRANSITION_EASING;
+/**
+ * ListCell Animation Styles
+ * CSS equivalent of the JavaScript-based animations
+ */
+
+/* Define animation variables */
+:root {
+  /* Duration values */
+  --list-cell-duration-xs: $LIST_CELL_DURATION_XS;
+  --list-cell-duration-s: $LIST_CELL_DURATION_S;  
+  --list-cell-duration-m: $LIST_CELL_DURATION_M;
+  
+  /* Easing values */
+  --list-cell-easing-standard: $LIST_CELL_EASING_STANDARD;
+  --list-cell-easing-spring: $LIST_CELL_EASING_SPRING;
+  --list-cell-easing-bounce: $LIST_CELL_EASING_BOUNCE;
+  
+  /* Transitions */
+  --list-cell-hover-transition: all $LIST_CELL_HOVER_DURATION $LIST_CELL_EASING_STANDARD;
+  --list-cell-tap-transition: all $LIST_CELL_TAP_DURATION $LIST_CELL_EASING_SPRING;
+  --list-cell-radio-transition: all $LIST_CELL_RADIO_DURATION $LIST_CELL_EASING_SPRING;
+  --list-cell-avatar-transition: all $LIST_CELL_AVATAR_DURATION $LIST_CELL_EASING_STANDARD;
 }
 
-.acr-arrow-60f-12-2-0 {
-  transition: background-color $ACCORDION_ARROW_ROTATION_DURATION $ACCORDION_ARROW_ROTATION_EASING;
+/* List cell hover animation */
+.list-cell {
+  background-color: rgba(0, 0, 0, 0);
+  transform: scale(1);
+  transform-origin: center;
+  transition: var(--list-cell-hover-transition);
 }
 
-.acr-icon-ea7-12-2-0 {
-  transition: transform $ACCORDION_ARROW_ROTATION_DURATION $ACCORDION_ARROW_ROTATION_EASING;
+.list-cell:hover {
+  background-color: rgba(0, 0, 0, 0.02);
 }
 
-.acr-iconActive-d9e-12-2-0 {
-  transform: rotate(180deg);
+/* List cell tap animation */
+.list-cell:active {
+  transform: scale(0.98);
+  transition: transform $LIST_CELL_TAP_DURATION $LIST_CELL_EASING_SPRING;
 }
 
-.acr-content-c3a-12-2-0 {
-  transition: 
-    max-height $ACCORDION_CONTENT_TRANSITION_DURATION $ACCORDION_CONTENT_TRANSITION_EASING,
-    opacity $ACCORDION_CONTENT_OPACITY_DURATION $ACCORDION_CONTENT_OPACITY_EASING;
+/* Radio animation */
+.list-cell-radio {
+  transform: scale(0);
+  transform-origin: center;
+  transition: var(--list-cell-radio-transition);
 }
 
-@keyframes acr-fadeInUp-eb1-12-2-0 {
-  0% {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.list-cell-radio.checked {
+  transform: scale(1);
 }
 
-.acr-contentOpen-84d-12-2-0 {
-  animation: acr-fadeInUp-eb1-12-2-0 $ACCORDION_ANIMATION_DURATION $ACCORDION_TRANSITION_EASING forwards;
+/* Avatar animation */
+.list-cell-avatar {
+  transform: scale(1) rotate(0deg);
+  transform-origin: center;
+  transition: var(--list-cell-avatar-transition);
+}
+
+.list-cell:hover .list-cell-avatar {
+  transform: scale(1.05) rotate(5deg);
 } 

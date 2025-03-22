@@ -1,58 +1,79 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  useAccordionAnimation,
-  accordionAnimationConfig,
-  arrowAnimation,
-  contentAnimation,
-} from './scripts/animation.js';
-import { extractMs } from './scripts/utils.js';
 import '../index.css';
-import './styles/component.scss';
+import './styles/listcell.css';
 import './styles/animation.scss';
+import './styles/listCellAnimation.css';
 import tokens from './tokens/utils/tokenUtils';
 import { useTokens } from './context/TokenContext';
+import {
+  useListCellAnimation,
+  hoverAnimation,
+  tapAnimation,
+  radioAnimation,
+  avatarAnimation,
+} from './scripts/animation.js';
 
 const Component = ({
   title = 'Заголовок',
   subtitle = 'Подзаголовок',
-  content = 'Оригинал документа, на основании которого продавец стал собственником квартиры. Например, договор купли-продажи, договор долевого участия, договор дарения и другие (находится у собственника)',
+  name = "list-item",
+  selected = false,
+  imageSrc = "https://img.dmclk.ru/s200x200q80/vitrina/96/33/9633066a859524b9187b26a37d8833bd6616f24d.jpg",
+  onSelect,
+  size = 'small'
 }) => {
   const { tokenValues: customTokens } = useTokens();
-  const [isOpen, setIsOpen] = useState(false);
-  const [isAnimating, startAnimation, stopAnimation] = useAccordionAnimation(
-    customTokens?.ACCORDION_ANIMATION_DURATION || null,
-    customTokens?.ACCORDION_TRANSITION_DURATION || tokens.ACCORDION_TRANSITION_DURATION
+  const [isSelected, setIsSelected] = useState(selected);
+  const [isPressed, setIsPressed] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isAnimating, startAnimation, stopAnimation] = useListCellAnimation(
+    customTokens?.LIST_CELL_DURATION_M || null,
+    customTokens?.LIST_CELL_TAP_DURATION || tokens.LIST_CELL_TAP_DURATION
   );
-  const [isToggleDisabled, setIsToggleDisabled] = useState(false);
-
+  const cellRef = useRef(null);
+  
+  // Synchronize external selection state with internal state
+  useEffect(() => {
+    setIsSelected(selected);
+  }, [selected]);
+  
   const getAnimationTokens = () => {
     if (customTokens) {
       return {
-        duration: customTokens.duration,
-        motion: customTokens.motion,
-        stiffness: customTokens.ACCORDION_ARROW_STIFFNESS || tokens.ACCORDION_ARROW_STIFFNESS,
-        damping: customTokens.ACCORDION_ARROW_DAMPING || tokens.ACCORDION_ARROW_DAMPING,
-        mass: customTokens.ACCORDION_ARROW_MASS || tokens.ACCORDION_ARROW_MASS
+        hoverDuration: customTokens.LIST_CELL_HOVER_DURATION || tokens.LIST_CELL_HOVER_DURATION,
+        tapDuration: customTokens.LIST_CELL_TAP_DURATION || tokens.LIST_CELL_TAP_DURATION,
+        radioDuration: customTokens.LIST_CELL_RADIO_DURATION || tokens.LIST_CELL_RADIO_DURATION,
+        avatarDuration: customTokens.LIST_CELL_AVATAR_DURATION || tokens.LIST_CELL_AVATAR_DURATION,
+        standardEasing: customTokens.LIST_CELL_EASING_STANDARD || tokens.LIST_CELL_EASING_STANDARD,
+        springEasing: customTokens.LIST_CELL_EASING_SPRING || tokens.LIST_CELL_EASING_SPRING,
+        stiffness: customTokens.LIST_CELL_STIFFNESS || tokens.LIST_CELL_STIFFNESS,
+        damping: customTokens.LIST_CELL_DAMPING || tokens.LIST_CELL_DAMPING,
+        mass: customTokens.LIST_CELL_MASS || tokens.LIST_CELL_MASS
       };
     } else {
       return {
-        duration: tokens.ACCORDION_TRANSITION_DURATION,
-        motion: tokens.ACCORDION_TRANSITION_EASING,
-        stiffness: tokens.ACCORDION_ARROW_STIFFNESS,
-        damping: tokens.ACCORDION_ARROW_DAMPING,
-        mass: tokens.ACCORDION_ARROW_MASS
+        hoverDuration: tokens.LIST_CELL_HOVER_DURATION,
+        tapDuration: tokens.LIST_CELL_TAP_DURATION,
+        radioDuration: tokens.LIST_CELL_RADIO_DURATION,
+        avatarDuration: tokens.LIST_CELL_AVATAR_DURATION,
+        standardEasing: tokens.LIST_CELL_EASING_STANDARD,
+        springEasing: tokens.LIST_CELL_EASING_SPRING,
+        stiffness: tokens.LIST_CELL_STIFFNESS,
+        damping: tokens.LIST_CELL_DAMPING,
+        mass: tokens.LIST_CELL_MASS
       };
     }
   };
 
-  const getCustomArrowAnimation = () => {
+  const getCustomTapAnimation = () => {
     const animTokens = getAnimationTokens();
     
     return {
+      scale: isPressed ? 0.98 : 1,
       transition: {
-        duration: parseFloat(animTokens.duration) / 1000 || 0.15,
-        ease: animTokens.motion,
+        duration: parseFloat(animTokens.tapDuration) / 1000 || 0.15,
+        ease: animTokens.springEasing,
         type: "spring",
         stiffness: animTokens.stiffness,
         damping: animTokens.damping,
@@ -61,118 +82,184 @@ const Component = ({
     };
   };
 
-  const getCustomContentAnimation = () => {
+  const getCustomRadioAnimation = () => {
     const animTokens = getAnimationTokens();
     
     return {
-      initial: { height: 0, opacity: 0 },
-      animate: { height: "auto", opacity: 1 },
-      exit: { height: 0, opacity: 0 },
+      initial: { scale: 0 },
+      animate: { scale: isSelected ? 1 : 0 },
       transition: {
-        height: {
-          duration: parseFloat(animTokens.duration) / 1000 || 0.25,
-          ease: "easeInOut",
-          type: "tween"
-        },
-        opacity: {
-          duration: parseFloat(tokens.ACCORDION_CONTENT_OPACITY_DURATION) / 1000 || 0.15,
-          ease: tokens.ACCORDION_CONTENT_OPACITY_EASING
-        }
-      },
-      style: { overflow: "hidden" }
+        duration: parseFloat(animTokens.radioDuration) / 1000 || 0.2,
+        ease: animTokens.springEasing,
+        type: "spring",
+        stiffness: animTokens.stiffness,
+        damping: animTokens.damping,
+        mass: animTokens.mass
+      }
     };
   };
 
-  const toggleAccordion = () => {
-    if (isToggleDisabled) return;
+  const getCustomAvatarAnimation = () => {
+    const animTokens = getAnimationTokens();
     
-    setIsToggleDisabled(true);
-    setIsOpen(!isOpen);
+    return {
+      scale: isHovered ? 1.05 : 1,
+      rotate: isHovered ? 5 : 0,
+      transition: {
+        duration: parseFloat(animTokens.avatarDuration) / 1000 || 0.25,
+        ease: animTokens.standardEasing,
+        type: "tween"
+      }
+    };
+  };
+  
+  const handleToggle = (e) => {
+    // Prevent any default behaviors
+    if (e) e.preventDefault();
+    
+    const newState = !isSelected;
+    setIsSelected(newState);
     startAnimation();
     
-    const animDuration = extractMs(customTokens?.ACCORDION_TRANSITION_DURATION || 
-                                  tokens.ACCORDION_TRANSITION_DURATION);
-    
-    const disableTime = animDuration + 100;
-    
-    setTimeout(() => {
-      setIsToggleDisabled(false);
-    }, disableTime);
+    if (onSelect) onSelect(name, newState);
   };
 
+  // Separate handler for checkbox
+  const handleCheckboxChange = (e) => {
+    e.stopPropagation();
+    handleToggle();
+  };
+  
+  // mouseDown handler
+  const handleMouseDown = () => {
+    setIsPressed(true);
+  };
+  
+  // mouseUp handler
+  const handleMouseUp = () => {
+    setIsPressed(false);
+  };
+  
+  // Hover state handlers
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+  
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    if (isPressed) {
+      handleMouseUp();
+    }
+  };
+  
+  // Add global event listeners for cases when mouseUp happens outside the cell
+  useEffect(() => {
+    const handleGlobalMouseUp = () => {
+      if (isPressed) {
+        handleMouseUp();
+      }
+    };
+    
+    window.addEventListener('mouseup', handleGlobalMouseUp);
+    
+    return () => {
+      window.removeEventListener('mouseup', handleGlobalMouseUp);
+    };
+  }, [isPressed]);
+  
   return (
-    <div className="_Gq5_ ql7Up" data-e2e-id="accordion-base">
-      <div className="f_vB6">
-        <div 
-          className="acr-root-bdf-12-2-0 acr-divider-502-12-2-0" 
-          data-e2e-id="accordion-default" 
-          tabIndex="0"
-          role="presentation"
-        >
+    <motion.div 
+      ref={cellRef}
+      className={`list-cell-root-0ea-2-2-1 list-cell-withControls-744-2-2-1 ${isSelected ? 'list-cell-selected-0f3-2-2-1' : ''} list-cell`} 
+      style={{ 
+        padding: '14px 16px', 
+        cursor: 'pointer',
+        position: 'relative'
+      }}
+      tabIndex="0" 
+      aria-checked={isSelected}
+      data-e2e-id={`listCell_item_${name}`}
+      onClick={handleToggle}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      role="checkbox"
+      animate={getCustomTapAnimation()}
+    >
+      <div className="list-cell-wrapper-1a8-2-2-1" style={{ position: 'relative', zIndex: 1 }}>
+        <div className="list-cell-leftSide-8c8-2-2-1" style={{ position: 'relative', zIndex: 1 }}>
           <div 
-            onClick={toggleAccordion}
-            data-e2e-id="accordion-default--toggle-button" 
-            className="acr-wrapTop-79f-12-2-0" 
-            tabIndex="-1"
-            style={{ cursor: 'pointer' }}
+            className={`checkbox-root-09c-9-1-0 ${isSelected ? 'checkbox-checked-b61-9-1-0' : ''}`} 
+            data-e2e-id={`${name}__label`}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleToggle();
+            }}
+            style={{ position: 'relative', zIndex: 1 }}
           >
-            <div className="acr-defaultTitle-147-12-2-0">
-              <div className="acr-wrapTitles-556-12-2-0">
-                <div className="acr-header-e6e-12-2-0">
-                  <div>
-                    <div className="acr-wrapTitle-d35-12-2-0">
-                      <h2 className="tg-heading-small-dc0-7-0-3">
-                        <div className="acr-title-c71-12-2-0">{title}</div>
-                      </h2>
-                    </div>
-                    <h5 className="acr-subtitle-d8b-12-2-0">{subtitle}</h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="acr-arrow-60f-12-2-0">
-              <div className="icon-root-864-6-0-3 acr-icon-ea7-12-2-0">
-                <motion.svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  width="16" 
-                  height="16" 
-                  fill="none"
-                  animate={{ rotate: isOpen ? 180 : 0 }}
-                  transition={customTokens ? getCustomArrowAnimation().transition : arrowAnimation.transition}
-                  style={{ transformOrigin: 'center' }}
-                >
-                  <path 
-                    fill="currentColor" 
-                    fillRule="evenodd"
-                    d="M7.41 11.09a.833.833 0 0 0 1.18 0l5-5a.833.833 0 0 0-1.18-1.18L8 9.322l-4.41-4.41A.833.833 0 0 0 2.41 6.09l5 5Z"
-                    clipRule="evenodd"
-                  />
-                </motion.svg>
-              </div>
+            <input 
+              className="checkbox-input-688-9-1-0" 
+              type="checkbox" 
+              id={`checkbox-${name}`}
+              name={name} 
+              tabIndex="-1" 
+              value={name}
+              checked={isSelected}
+              onChange={handleCheckboxChange}
+              onClick={(e) => e.stopPropagation()}
+              style={{ position: 'relative', zIndex: 1 }}
+            />
+            <div className="checkbox-iconContainer-80d-9-1-0" style={{ position: 'relative', zIndex: 1 }}>
+              <motion.div 
+                className={`icon-root-864-6-0-3 checkbox-icon-044-9-1-0 list-cell-radio`} 
+                style={{ position: 'relative', zIndex: 1 }}
+                initial={radioAnimation.initial}
+                animate={{ scale: isSelected ? 1 : 0 }}
+                transition={customTokens ? getCustomRadioAnimation().transition : radioAnimation.transition}
+              >
+                {isSelected && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" style={{ position: 'relative', zIndex: 1 }}>
+                    <path fill="currentColor" fillRule="evenodd" d="M14.015 4.092a.863.863 0 0 1-.018 1.202l-6.58 6.513a1.232 1.232 0 0 1-1.755-.014L1.994 8.049a.863.863 0 0 1 0-1.203.822.822 0 0 1 1.179 0l3.378 3.448 6.285-6.22a.822.822 0 0 1 1.179.018Z" clipRule="evenodd"></path>
+                  </svg>
+                )}
+              </motion.div>
             </div>
           </div>
-          <AnimatePresence mode="wait" initial={false}>
-            {isOpen && (
-              <motion.div 
-                key="content"
-                layout="position"
-                className="acr-content-c3a-12-2-0"
-                initial={contentAnimation.initial}
-                animate={contentAnimation.animate}
-                exit={contentAnimation.exit}
-                transition={customTokens ? getCustomContentAnimation().transition : contentAnimation.transition}
-                style={contentAnimation.style}
-              >
-                <div 
-                  className="tg-body-standard-regular-bdb-7-0-3"
-                  style={{ padding: "0 24px 24px" }}
-                >{content}</div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+        </div>
+        
+        <div className="list-cell-title-64d-2-2-1" style={{ position: 'relative', zIndex: 1 }}>
+          <div className="list-cell-highlightMatchRoot-160-2-2-1">{title}</div>
+          {subtitle && <div className="list-cell-subtitle-bb8-2-2-1">{subtitle}</div>}
         </div>
       </div>
-    </div>
+      
+      {imageSrc && (
+        <div className="list-cell-rightSide-e72-2-2-1" style={{ position: 'relative', zIndex: 1 }}>
+          <motion.div 
+            className="avtr-root-912-1-1-4 avtr-small-b73-1-1-4 avtr-circle-5ee-1-1-4 list-cell-avatar"
+            animate={getCustomAvatarAnimation()}
+          >
+            <div className="avtr-inner-125-1-1-4 avtr-primary-9ed-1-1-4">
+              <div className="picture-picture-f61-4-0-1" style={{ width: '40px', height: '40px' }}>
+                <picture className="picture-pictureContent-486-4-0-1">
+                  <source srcSet={imageSrc.replace(/\.(jpg|jpeg|png)$/, '.webp')} type="image/webp" />
+                  <img 
+                    src={imageSrc} 
+                    alt="" 
+                    className="picture-image-object-fit--cover-820-4-0-1" 
+                    width="40" 
+                    height="40" 
+                    loading="eager" 
+                    style={{ objectPosition: '50% 50%' }}
+                  />
+                </picture>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </motion.div>
   );
 };
 
