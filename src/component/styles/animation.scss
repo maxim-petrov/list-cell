@@ -1,0 +1,36 @@
+@use '../tokens/utils/tokenUtils' as *;
+
+.acr-wrapTop-79f-12-2-0 {
+  transition: color $ACCORDION_TRANSITION_DURATION $ACCORDION_TRANSITION_EASING;
+}
+
+.acr-arrow-60f-12-2-0 {
+  transition: background-color $ACCORDION_ARROW_ROTATION_DURATION $ACCORDION_ARROW_ROTATION_EASING;
+}
+
+.acr-icon-ea7-12-2-0 {
+  transition: transform $ACCORDION_ARROW_ROTATION_DURATION $ACCORDION_ARROW_ROTATION_EASING;
+}
+
+.acr-iconActive-d9e-12-2-0 {
+  transform: rotate(180deg);
+}
+
+.acr-content-c3a-12-2-0 {
+  transition: 
+    max-height $ACCORDION_CONTENT_TRANSITION_DURATION $ACCORDION_CONTENT_TRANSITION_EASING,
+    opacity $ACCORDION_CONTENT_OPACITY_DURATION $ACCORDION_CONTENT_OPACITY_EASING;
+}
+
+@keyframes acr-fadeInUp-eb1-12-2-0 {
+  0% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.acr-contentOpen-84d-12-2-0 {
+  animation: acr-fadeInUp-eb1-12-2-0 $ACCORDION_ANIMATION_DURATION $ACCORDION_TRANSITION_EASING forwards;
+} 
