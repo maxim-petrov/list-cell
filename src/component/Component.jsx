@@ -224,9 +224,9 @@ const Component = ({
           </div>
         </div>
         
-        <div className="list-cell-title-64d-2-2-1" style={{ position: 'relative' }}>
-          <div className="list-cell-highlightMatchRoot-160-2-2-1">{title}</div>
-          {subtitle && <div className="list-cell-subtitle-bb8-2-2-1">{subtitle}</div>}
+        <div className="list-cell-title-64d-2-2-1" style={{ position: 'relative', textAlign: 'left' }}>
+          <div className="list-cell-highlightMatchRoot-160-2-2-1" style={{ textAlign: 'left' }}>{title}</div>
+          {subtitle && <div className="list-cell-subtitle-bb8-2-2-1" style={{ textAlign: 'left' }}>{subtitle}</div>}
         </div>
       </div>
       
