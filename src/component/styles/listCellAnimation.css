@@ -17,23 +17,12 @@
   --list-cell-hover-transition: background-color 0.25s ease;
   --list-cell-tap-transition: all 0.15s ease;
   --list-cell-radio-transition: all 0.2s ease;
-  --list-cell-avatar-transition: all 0.25s ease;
 }
 
 /* List cell hover animation */
 .list-cell {
   position: relative;
   transition: var(--list-cell-hover-transition);
-}
-
-/* Avatar animation */
-.list-cell-avatar {
-  transform: scale(1) rotate(0deg);
-  transition: var(--list-cell-avatar-transition);
-}
-
-.list-cell:hover .list-cell-avatar {
-  transform: scale(1.05) rotate(5deg);
 }
 
 /* Animation classes for JavaScript integration */
@@ -47,8 +36,4 @@
 
 .list-cell-animate-radio {
   transition: var(--list-cell-radio-transition);
-}
-
-.list-cell-animate-avatar {
-  transition: var(--list-cell-avatar-transition);
 } 

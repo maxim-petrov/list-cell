@@ -1,8 +1,6 @@
-@use '../tokens/utils/tokenUtils' as *;
-
 /**
  * ListCell Animation Styles
- * Simplified transitions without spring animations
+ * Simplified transitions without animations
  */
 
 /* Define animation variables */
@@ -19,21 +17,10 @@
   --list-cell-hover-transition: background-color 0.15s ease;
   --list-cell-tap-transition: all 0.15s ease;
   --list-cell-radio-transition: all 0.2s ease;
-  --list-cell-avatar-transition: all 0.25s ease;
 }
 
 /* List cell hover animation */
 .list-cell {
   background-color: rgba(0, 0, 0, 0);
   transition: var(--list-cell-hover-transition);
-}
-
-/* Avatar animation */
-.list-cell-avatar {
-  transform: scale(1) rotate(0deg);
-  transition: var(--list-cell-avatar-transition);
-}
-
-.list-cell:hover .list-cell-avatar {
-  transform: scale(1.05) rotate(5deg);
 } 

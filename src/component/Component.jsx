@@ -143,10 +143,6 @@ const Component = ({
         <div className="list-cell-rightSide-e72-2-2-1" style={{ position: 'relative' }}>
           <div 
             className="avtr-root-912-1-1-4 avtr-small-b73-1-1-4 avtr-circle-5ee-1-1-4 list-cell-avatar"
-            style={{ 
-              transform: isHovered ? 'scale(1.05) rotate(5deg)' : 'scale(1) rotate(0deg)',
-              transition: 'transform 0.25s ease'
-            }}
           >
             <div className="avtr-inner-125-1-1-4 avtr-primary-9ed-1-1-4">
               <div className="picture-picture-f61-4-0-1" style={{ width: '40px', height: '40px' }}>
