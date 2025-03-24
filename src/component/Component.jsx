@@ -29,20 +29,22 @@ const Component = ({
   // Update CSS variables when tokens change
   useEffect(() => {
     if (customTokens) {
-      document.documentElement.style.setProperty('--list-cell-hover-duration', customTokens.LIST_CELL_HOVER_DURATION || tokens.LIST_CELL_HOVER_DURATION);
-      document.documentElement.style.setProperty('--list-cell-tap-duration', customTokens.LIST_CELL_TAP_DURATION || tokens.LIST_CELL_TAP_DURATION);
-      document.documentElement.style.setProperty('--list-cell-radio-duration', customTokens.LIST_CELL_RADIO_DURATION || tokens.LIST_CELL_RADIO_DURATION);
-      document.documentElement.style.setProperty('--list-cell-easing-standard', customTokens.LIST_CELL_EASING_STANDARD || tokens.LIST_CELL_EASING_STANDARD);
+      document.documentElement.style.setProperty('--list-cell-hover-duration', customTokens.LIST_CELL_HOVER_ANIMATION_DURATION || tokens.LIST_CELL_HOVER_ANIMATION_DURATION);
+      document.documentElement.style.setProperty('--list-cell-tap-duration', customTokens.LIST_CELL_TAP_ANIMATION_DURATION || tokens.LIST_CELL_TAP_ANIMATION_DURATION);
+      document.documentElement.style.setProperty('--list-cell-radio-duration', customTokens.LIST_CELL_RADIO_ANIMATION_DURATION || tokens.LIST_CELL_RADIO_ANIMATION_DURATION);
+      document.documentElement.style.setProperty('--list-cell-easing-standard', customTokens.LIST_CELL_HOVER_ANIMATION_EASING || tokens.LIST_CELL_HOVER_ANIMATION_EASING);
       
       // Update transition shorthand variables
-      const hoverDuration = customTokens.LIST_CELL_HOVER_DURATION || tokens.LIST_CELL_HOVER_DURATION;
-      const tapDuration = customTokens.LIST_CELL_TAP_DURATION || tokens.LIST_CELL_TAP_DURATION;
-      const radioDuration = customTokens.LIST_CELL_RADIO_DURATION || tokens.LIST_CELL_RADIO_DURATION;
-      const easing = customTokens.LIST_CELL_EASING_STANDARD || tokens.LIST_CELL_EASING_STANDARD;
+      const hoverDuration = customTokens.LIST_CELL_HOVER_ANIMATION_DURATION || tokens.LIST_CELL_HOVER_ANIMATION_DURATION;
+      const tapDuration = customTokens.LIST_CELL_TAP_ANIMATION_DURATION || tokens.LIST_CELL_TAP_ANIMATION_DURATION;
+      const radioDuration = customTokens.LIST_CELL_RADIO_ANIMATION_DURATION || tokens.LIST_CELL_RADIO_ANIMATION_DURATION;
+      const hoverEasing = customTokens.LIST_CELL_HOVER_ANIMATION_EASING || tokens.LIST_CELL_HOVER_ANIMATION_EASING;
+      const tapEasing = customTokens.LIST_CELL_TAP_ANIMATION_EASING || tokens.LIST_CELL_TAP_ANIMATION_EASING;
+      const radioEasing = customTokens.LIST_CELL_RADIO_ANIMATION_EASING || tokens.LIST_CELL_RADIO_ANIMATION_EASING;
       
-      document.documentElement.style.setProperty('--list-cell-hover-transition', `background-color ${hoverDuration} ${easing}`);
-      document.documentElement.style.setProperty('--list-cell-tap-transition', `all ${tapDuration} ${easing}`);
-      document.documentElement.style.setProperty('--list-cell-radio-transition', `all ${radioDuration} ${easing}`);
+      document.documentElement.style.setProperty('--list-cell-hover-transition', `background-color ${hoverDuration} ${hoverEasing}`);
+      document.documentElement.style.setProperty('--list-cell-tap-transition', `all ${tapDuration} ${tapEasing}`);
+      document.documentElement.style.setProperty('--list-cell-radio-transition', `all ${radioDuration} ${radioEasing}`);
     }
   }, [customTokens]);
   
@@ -50,17 +52,17 @@ const Component = ({
   const getTransitionValues = () => {
     if (customTokens) {
       return {
-        hoverDuration: customTokens.LIST_CELL_HOVER_DURATION || tokens.LIST_CELL_HOVER_DURATION,
-        tapDuration: customTokens.LIST_CELL_TAP_DURATION || tokens.LIST_CELL_TAP_DURATION,
-        radioDuration: customTokens.LIST_CELL_RADIO_DURATION || tokens.LIST_CELL_RADIO_DURATION,
-        standardEasing: customTokens.LIST_CELL_EASING_STANDARD || tokens.LIST_CELL_EASING_STANDARD,
+        hoverDuration: customTokens.LIST_CELL_HOVER_ANIMATION_DURATION || tokens.LIST_CELL_HOVER_ANIMATION_DURATION,
+        tapDuration: customTokens.LIST_CELL_TAP_ANIMATION_DURATION || tokens.LIST_CELL_TAP_ANIMATION_DURATION,
+        radioDuration: customTokens.LIST_CELL_RADIO_ANIMATION_DURATION || tokens.LIST_CELL_RADIO_ANIMATION_DURATION,
+        standardEasing: customTokens.LIST_CELL_HOVER_ANIMATION_EASING || tokens.LIST_CELL_HOVER_ANIMATION_EASING,
       };
     } else {
       return {
-        hoverDuration: tokens.LIST_CELL_HOVER_DURATION,
-        tapDuration: tokens.LIST_CELL_TAP_DURATION,
-        radioDuration: tokens.LIST_CELL_RADIO_DURATION,
-        standardEasing: tokens.LIST_CELL_EASING_STANDARD,
+        hoverDuration: tokens.LIST_CELL_HOVER_ANIMATION_DURATION,
+        tapDuration: tokens.LIST_CELL_TAP_ANIMATION_DURATION,
+        radioDuration: tokens.LIST_CELL_RADIO_ANIMATION_DURATION,
+        standardEasing: tokens.LIST_CELL_HOVER_ANIMATION_EASING,
       };
     }
   };
