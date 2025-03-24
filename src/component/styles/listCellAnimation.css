@@ -1,6 +1,6 @@
 /**
  * ListCell Animation Styles
- * CSS equivalent of the JavaScript-based animations from listCellAnimations.js
+ * Simplified transitions without spring physics
  */
 
 /* Define animation variables */
@@ -10,52 +10,25 @@
   --list-cell-duration-s: 0.15s;  /* 150ms */
   --list-cell-duration-m: 0.25s;  /* 250ms */
   
-  /* Easing values - approximating spring physics */
-  --list-cell-easing-standard: cubic-bezier(0.4, 0.0, 0.2, 1.0);
-  --list-cell-easing-spring: cubic-bezier(0.43, 0.28, 0.52, 1.23);
-  --list-cell-easing-bounce: cubic-bezier(0.2, 0.8, 0.2, 1.2);
+  /* Easing values - simple ease */
+  --list-cell-easing-standard: ease;
   
   /* Transitions */
-  --list-cell-hover-transition: all 0.25s cubic-bezier(0.4, 0.0, 0.2, 1.0);
-  --list-cell-tap-transition: all 0.15s cubic-bezier(0.43, 0.28, 0.52, 1.23);
-  --list-cell-radio-transition: all 0.2s cubic-bezier(0.43, 0.28, 0.52, 1.23);
-  --list-cell-avatar-transition: all 0.25s cubic-bezier(0.4, 0.0, 0.2, 1.0);
+  --list-cell-hover-transition: background-color 0.25s ease;
+  --list-cell-tap-transition: all 0.15s ease;
+  --list-cell-radio-transition: all 0.2s ease;
+  --list-cell-avatar-transition: all 0.25s ease;
 }
 
 /* List cell hover animation */
 .list-cell {
   position: relative;
-  background-color: rgba(0, 0, 0, 0);
-  transform: scale(1);
-  transform-origin: center;
   transition: var(--list-cell-hover-transition);
-}
-
-.list-cell:hover {
-  background-color: rgba(0, 0, 0, 0.02);
-}
-
-/* List cell tap animation */
-.list-cell:active {
-  transform: scale(0.98);
-  transition: transform 0.15s cubic-bezier(0.43, 0.28, 0.52, 1.23);
-}
-
-/* Radio animation */
-.list-cell-radio {
-  transform: scale(0);
-  transform-origin: center;
-  transition: var(--list-cell-radio-transition);
-}
-
-.list-cell-radio.checked {
-  transform: scale(1);
 }
 
 /* Avatar animation */
 .list-cell-avatar {
   transform: scale(1) rotate(0deg);
-  transform-origin: center;
   transition: var(--list-cell-avatar-transition);
 }
 
@@ -65,24 +38,17 @@
 
 /* Animation classes for JavaScript integration */
 .list-cell-animate-hover {
-  background-color: rgba(0, 0, 0, 0);
-  transform: scale(1);
-  transform-origin: center;
   transition: var(--list-cell-hover-transition);
 }
 
 .list-cell-animate-tap {
-  transform: scale(1);
-  transform-origin: center;
   transition: var(--list-cell-tap-transition);
 }
 
 .list-cell-animate-radio {
-  transform: scale(0);
   transition: var(--list-cell-radio-transition);
 }
 
 .list-cell-animate-avatar {
-  transform: scale(1) rotate(0deg);
   transition: var(--list-cell-avatar-transition);
 } 

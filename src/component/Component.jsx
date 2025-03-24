@@ -1,18 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import '../index.css';
 import './styles/listcell.css';
 import './styles/animation.scss';
 import './styles/listCellAnimation.css';
-import tokens from './tokens/utils/tokenUtils';
-import { useTokens } from './context/TokenContext';
-import {
-  useListCellAnimation,
-  hoverAnimation,
-  tapAnimation,
-  radioAnimation,
-  avatarAnimation,
-} from './scripts/animation.js';
 
 const Component = ({
   title = 'Заголовок',
@@ -23,14 +13,9 @@ const Component = ({
   onSelect,
   size = 'small'
 }) => {
-  const { tokenValues: customTokens } = useTokens();
   const [isSelected, setIsSelected] = useState(selected);
   const [isPressed, setIsPressed] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [isAnimating, startAnimation, stopAnimation] = useListCellAnimation(
-    customTokens?.LIST_CELL_DURATION_M || null,
-    customTokens?.LIST_CELL_TAP_DURATION || tokens.LIST_CELL_TAP_DURATION
-  );
   const cellRef = useRef(null);
   
   // Synchronize external selection state with internal state
@@ -38,88 +23,12 @@ const Component = ({
     setIsSelected(selected);
   }, [selected]);
   
-  const getAnimationTokens = () => {
-    if (customTokens) {
-      return {
-        hoverDuration: customTokens.LIST_CELL_HOVER_DURATION || tokens.LIST_CELL_HOVER_DURATION,
-        tapDuration: customTokens.LIST_CELL_TAP_DURATION || tokens.LIST_CELL_TAP_DURATION,
-        radioDuration: customTokens.LIST_CELL_RADIO_DURATION || tokens.LIST_CELL_RADIO_DURATION,
-        avatarDuration: customTokens.LIST_CELL_AVATAR_DURATION || tokens.LIST_CELL_AVATAR_DURATION,
-        standardEasing: customTokens.LIST_CELL_EASING_STANDARD || tokens.LIST_CELL_EASING_STANDARD,
-        springEasing: customTokens.LIST_CELL_EASING_SPRING || tokens.LIST_CELL_EASING_SPRING,
-        stiffness: customTokens.LIST_CELL_STIFFNESS || tokens.LIST_CELL_STIFFNESS,
-        damping: customTokens.LIST_CELL_DAMPING || tokens.LIST_CELL_DAMPING,
-        mass: customTokens.LIST_CELL_MASS || tokens.LIST_CELL_MASS
-      };
-    } else {
-      return {
-        hoverDuration: tokens.LIST_CELL_HOVER_DURATION,
-        tapDuration: tokens.LIST_CELL_TAP_DURATION,
-        radioDuration: tokens.LIST_CELL_RADIO_DURATION,
-        avatarDuration: tokens.LIST_CELL_AVATAR_DURATION,
-        standardEasing: tokens.LIST_CELL_EASING_STANDARD,
-        springEasing: tokens.LIST_CELL_EASING_SPRING,
-        stiffness: tokens.LIST_CELL_STIFFNESS,
-        damping: tokens.LIST_CELL_DAMPING,
-        mass: tokens.LIST_CELL_MASS
-      };
-    }
-  };
-
-  const getCustomTapAnimation = () => {
-    const animTokens = getAnimationTokens();
-    
-    return {
-      scale: isPressed ? 0.98 : 1,
-      transition: {
-        duration: parseFloat(animTokens.tapDuration) / 1000 || 0.15,
-        ease: animTokens.springEasing,
-        type: "spring",
-        stiffness: animTokens.stiffness,
-        damping: animTokens.damping,
-        mass: animTokens.mass
-      }
-    };
-  };
-
-  const getCustomRadioAnimation = () => {
-    const animTokens = getAnimationTokens();
-    
-    return {
-      initial: { scale: 0 },
-      animate: { scale: isSelected ? 1 : 0 },
-      transition: {
-        duration: parseFloat(animTokens.radioDuration) / 1000 || 0.2,
-        ease: animTokens.springEasing,
-        type: "spring",
-        stiffness: animTokens.stiffness,
-        damping: animTokens.damping,
-        mass: animTokens.mass
-      }
-    };
-  };
-
-  const getCustomAvatarAnimation = () => {
-    const animTokens = getAnimationTokens();
-    
-    return {
-      scale: isHovered ? 1.05 : 1,
-      rotate: isHovered ? 5 : 0,
-      transition: {
-        duration: parseFloat(animTokens.avatarDuration) / 1000 || 0.25,
-        ease: animTokens.standardEasing,
-        type: "tween"
-      }
-    };
-  };
-  
   const handleToggle = (e) => {
     // Prevent any default behaviors
     if (e) e.preventDefault();
     
     const newState = !isSelected;
     setIsSelected(newState);
-    startAnimation();
     
     if (onSelect) onSelect(name, newState);
   };
@@ -168,14 +77,15 @@ const Component = ({
   }, [isPressed]);
   
   return (
-    <motion.div 
+    <div 
       ref={cellRef}
       className={`list-cell-root-0ea-2-2-1 list-cell-withControls-744-2-2-1 ${isSelected ? 'list-cell-selected-0f3-2-2-1' : ''} list-cell`} 
       style={{ 
         padding: '14px 16px', 
         cursor: 'pointer',
         position: 'relative',
-        backgroundColor: isPressed ? '#DEDFE3' : (isHovered ? '#F6F7F9' : 'var(--color_bg_control_primary_default, #fff)')
+        backgroundColor: isPressed ? '#DEDFE3' : (isHovered ? '#F6F7F9' : 'var(--color_bg_control_primary_default, #fff)'),
+        transition: 'background-color 0.15s ease'
       }}
       tabIndex="0" 
       aria-checked={isSelected}
@@ -186,7 +96,6 @@ const Component = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       role="checkbox"
-      animate={getCustomTapAnimation()}
     >
       <div className="list-cell-wrapper-1a8-2-2-1" style={{ position: 'relative' }}>
         <div className="list-cell-leftSide-8c8-2-2-1" style={{ position: 'relative' }}>
@@ -232,9 +141,12 @@ const Component = ({
       
       {imageSrc && (
         <div className="list-cell-rightSide-e72-2-2-1" style={{ position: 'relative' }}>
-          <motion.div 
+          <div 
             className="avtr-root-912-1-1-4 avtr-small-b73-1-1-4 avtr-circle-5ee-1-1-4 list-cell-avatar"
-            animate={getCustomAvatarAnimation()}
+            style={{ 
+              transform: isHovered ? 'scale(1.05) rotate(5deg)' : 'scale(1) rotate(0deg)',
+              transition: 'transform 0.25s ease'
+            }}
           >
             <div className="avtr-inner-125-1-1-4 avtr-primary-9ed-1-1-4">
               <div className="picture-picture-f61-4-0-1" style={{ width: '40px', height: '40px' }}>
@@ -252,10 +164,10 @@ const Component = ({
                 </picture>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       )}
-    </motion.div>
+    </div>
   );
 };
 

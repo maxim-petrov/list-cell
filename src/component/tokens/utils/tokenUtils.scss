@@ -1,6 +1,5 @@
 :root {
   --list-cell-avatar-duration: 250ms;
-  --list-cell-damping: 17;
   --list-cell-duration-m: 250ms;
   --list-cell-duration-s: 150ms;
   --list-cell-duration-xs: 100ms;
@@ -8,13 +7,10 @@
   --list-cell-easing-spring: cubic-bezier(0.32, 1.72, 0, 1);
   --list-cell-easing-standard: cubic-bezier(.165, .84, .44, 1);
   --list-cell-hover-duration: 250ms;
-  --list-cell-mass: 0.6;
   --list-cell-radio-duration: 200ms;
-  --list-cell-stiffness: 290;
   --list-cell-tap-duration: 150ms;
 }
 $LIST_CELL_AVATAR_DURATION: var(--list-cell-avatar-duration);
-$LIST_CELL_DAMPING: var(--list-cell-damping);
 $LIST_CELL_DURATION_M: var(--list-cell-duration-m);
 $LIST_CELL_DURATION_S: var(--list-cell-duration-s);
 $LIST_CELL_DURATION_XS: var(--list-cell-duration-xs);
@@ -22,7 +18,5 @@ $LIST_CELL_EASING_BOUNCE: var(--list-cell-easing-bounce);
 $LIST_CELL_EASING_SPRING: var(--list-cell-easing-spring);
 $LIST_CELL_EASING_STANDARD: var(--list-cell-easing-standard);
 $LIST_CELL_HOVER_DURATION: var(--list-cell-hover-duration);
-$LIST_CELL_MASS: var(--list-cell-mass);
 $LIST_CELL_RADIO_DURATION: var(--list-cell-radio-duration);
-$LIST_CELL_STIFFNESS: var(--list-cell-stiffness);
 $LIST_CELL_TAP_DURATION: var(--list-cell-tap-duration);

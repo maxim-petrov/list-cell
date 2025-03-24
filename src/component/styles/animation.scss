@@ -2,61 +2,35 @@
 
 /**
  * ListCell Animation Styles
- * CSS equivalent of the JavaScript-based animations
+ * Simplified transitions without spring animations
  */
 
 /* Define animation variables */
 :root {
   /* Duration values */
-  --list-cell-duration-xs: $LIST_CELL_DURATION_XS;
-  --list-cell-duration-s: $LIST_CELL_DURATION_S;  
-  --list-cell-duration-m: $LIST_CELL_DURATION_M;
+  --list-cell-duration-xs: 0.15s;
+  --list-cell-duration-s: 0.2s;  
+  --list-cell-duration-m: 0.25s;
   
   /* Easing values */
-  --list-cell-easing-standard: $LIST_CELL_EASING_STANDARD;
-  --list-cell-easing-spring: $LIST_CELL_EASING_SPRING;
-  --list-cell-easing-bounce: $LIST_CELL_EASING_BOUNCE;
+  --list-cell-easing-standard: ease;
   
   /* Transitions */
-  --list-cell-hover-transition: all $LIST_CELL_HOVER_DURATION $LIST_CELL_EASING_STANDARD;
-  --list-cell-tap-transition: all $LIST_CELL_TAP_DURATION $LIST_CELL_EASING_SPRING;
-  --list-cell-radio-transition: all $LIST_CELL_RADIO_DURATION $LIST_CELL_EASING_SPRING;
-  --list-cell-avatar-transition: all $LIST_CELL_AVATAR_DURATION $LIST_CELL_EASING_STANDARD;
+  --list-cell-hover-transition: background-color 0.15s ease;
+  --list-cell-tap-transition: all 0.15s ease;
+  --list-cell-radio-transition: all 0.2s ease;
+  --list-cell-avatar-transition: all 0.25s ease;
 }
 
 /* List cell hover animation */
 .list-cell {
   background-color: rgba(0, 0, 0, 0);
-  transform: scale(1);
-  transform-origin: center;
   transition: var(--list-cell-hover-transition);
-}
-
-.list-cell:hover {
-  background-color: rgba(0, 0, 0, 0.02);
-}
-
-/* List cell tap animation */
-.list-cell:active {
-  transform: scale(0.98);
-  transition: transform $LIST_CELL_TAP_DURATION $LIST_CELL_EASING_SPRING;
-}
-
-/* Radio animation */
-.list-cell-radio {
-  transform: scale(0);
-  transform-origin: center;
-  transition: var(--list-cell-radio-transition);
-}
-
-.list-cell-radio.checked {
-  transform: scale(1);
 }
 
 /* Avatar animation */
 .list-cell-avatar {
   transform: scale(1) rotate(0deg);
-  transform-origin: center;
   transition: var(--list-cell-avatar-transition);
 }
 

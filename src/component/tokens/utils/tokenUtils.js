@@ -29,10 +29,7 @@ const processedTokens = {
   "LIST_CELL_HOVER_DURATION": "250ms",
   "LIST_CELL_TAP_DURATION": "150ms",
   "LIST_CELL_RADIO_DURATION": "200ms",
-  "LIST_CELL_AVATAR_DURATION": "250ms",
-  "LIST_CELL_STIFFNESS": "290",
-  "LIST_CELL_DAMPING": "17",
-  "LIST_CELL_MASS": "0.6"
+  "LIST_CELL_AVATAR_DURATION": "250ms"
 };
 
 processedTokens.updateToken = function(tokenName, tokenValue) {
