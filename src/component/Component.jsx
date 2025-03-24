@@ -174,7 +174,8 @@ const Component = ({
       style={{ 
         padding: '14px 16px', 
         cursor: 'pointer',
-        position: 'relative'
+        position: 'relative',
+        backgroundColor: isPressed ? '#DEDFE3' : (isHovered ? '#F6F7F9' : 'var(--color_bg_control_primary_default, #fff)')
       }}
       tabIndex="0" 
       aria-checked={isSelected}

@@ -20,7 +20,7 @@ function App() {
 
   return (
     <TokenProvider>
-      <div style={{ padding: '40px', backgroundColor: '#f0f5f8', borderRadius: '20px' }}>
+      <div style={{ padding: '40px', backgroundColor: '#fff', borderRadius: '20px' }}>
         <Component 
           title="Телефонный звонок" 
           subtitle="Предпочитаемый метод связи" 

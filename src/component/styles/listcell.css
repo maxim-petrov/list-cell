@@ -58,20 +58,20 @@
 
 @media (-ms-high-contrast:active),(hover: hover),all and (-ms-high-contrast:none) {
     .list-cell-root-0ea-2-2-1:not(.list-cell-withControls-744-2-2-1):not(.list-cell-disabled-1b0-2-2-1):hover {
-        background-color:var(--color_bg_control_primary_hover,#f6f7f9)
+        background-color: #F6F7F9;
     }
 }
 
 .list-cell-root-0ea-2-2-1:not(.list-cell-withControls-744-2-2-1):not(.list-cell-disabled-1b0-2-2-1):active {
-    background-color: var(--color_bg_control_primary_active,#dedfe3)
+    background-color: #DEDFE3;
 }
 
 .list-cell-root-0ea-2-2-1:not(.list-cell-withControls-744-2-2-1):not(.list-cell-disabled-1b0-2-2-1).list-cell-selected-0f3-2-2-1 {
-    background-color: var(--color_bg_control_primary_selected,#e0e4e9)
+    background-color: #E0E4E9;
 }
 
 .list-cell-root-0ea-2-2-1:not(.list-cell-withControls-744-2-2-1):not(.list-cell-disabled-1b0-2-2-1).list-cell-focused-df3-2-2-1 {
-    background-color: var(--color_bg_control_primary_hover,#f6f7f9)
+    background-color: #F6F7F9;
 }
 
 .list-cell-root-0ea-2-2-1.list-cell-small-9e1-2-2-1 {
