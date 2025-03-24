@@ -1,22 +1,24 @@
+@use '../tokens/utils/tokenUtils' as *;
+
 /**
  * ListCell Animation Styles
- * Simplified transitions without animations
+ * Simplified transitions with token support
  */
 
 /* Define animation variables */
 :root {
   /* Duration values */
-  --list-cell-duration-xs: 0.15s;
-  --list-cell-duration-s: 0.2s;  
-  --list-cell-duration-m: 0.25s;
+  --list-cell-duration-xs: $LIST_CELL_DURATION_XS;
+  --list-cell-duration-s: $LIST_CELL_DURATION_S;  
+  --list-cell-duration-m: $LIST_CELL_DURATION_M;
   
   /* Easing values */
-  --list-cell-easing-standard: ease;
+  --list-cell-easing-standard: $LIST_CELL_EASING_STANDARD;
   
   /* Transitions */
-  --list-cell-hover-transition: background-color 0.15s ease;
-  --list-cell-tap-transition: all 0.15s ease;
-  --list-cell-radio-transition: all 0.2s ease;
+  --list-cell-hover-transition: background-color $LIST_CELL_HOVER_DURATION $LIST_CELL_EASING_STANDARD;
+  --list-cell-tap-transition: all $LIST_CELL_TAP_DURATION $LIST_CELL_EASING_STANDARD;
+  --list-cell-radio-transition: all $LIST_CELL_RADIO_DURATION $LIST_CELL_EASING_STANDARD;
 }
 
 /* List cell hover animation */

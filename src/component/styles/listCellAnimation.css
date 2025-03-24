@@ -1,30 +1,9 @@
 /**
  * ListCell Animation Styles
- * Simplified transitions without spring physics
+ * Simplified transitions with token support
  */
 
-/* Define animation variables */
-:root {
-  /* Duration values */
-  --list-cell-duration-xs: 0.1s;  /* 100ms */
-  --list-cell-duration-s: 0.15s;  /* 150ms */
-  --list-cell-duration-m: 0.25s;  /* 250ms */
-  
-  /* Easing values - simple ease */
-  --list-cell-easing-standard: ease;
-  
-  /* Transitions */
-  --list-cell-hover-transition: background-color 0.25s ease;
-  --list-cell-tap-transition: all 0.15s ease;
-  --list-cell-radio-transition: all 0.2s ease;
-}
-
-/* List cell hover animation */
-.list-cell {
-  position: relative;
-  transition: var(--list-cell-hover-transition);
-}
-
+/* Note: These CSS variables will be dynamically updated by JS through TokenContext */
 /* Animation classes for JavaScript integration */
 .list-cell-animate-hover {
   transition: var(--list-cell-hover-transition);

@@ -3,6 +3,8 @@ import '../index.css';
 import './styles/listcell.css';
 import './styles/animation.scss';
 import './styles/listCellAnimation.css';
+import tokens from './tokens/utils/tokenUtils';
+import { useTokens } from './context/TokenContext';
 
 const Component = ({
   title = 'Заголовок',
@@ -13,6 +15,7 @@ const Component = ({
   onSelect,
   size = 'small'
 }) => {
+  const { tokenValues: customTokens } = useTokens();
   const [isSelected, setIsSelected] = useState(selected);
   const [isPressed, setIsPressed] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -22,6 +25,51 @@ const Component = ({
   useEffect(() => {
     setIsSelected(selected);
   }, [selected]);
+  
+  // Update CSS variables when tokens change
+  useEffect(() => {
+    if (customTokens) {
+      document.documentElement.style.setProperty('--list-cell-hover-duration', customTokens.LIST_CELL_HOVER_DURATION || tokens.LIST_CELL_HOVER_DURATION);
+      document.documentElement.style.setProperty('--list-cell-tap-duration', customTokens.LIST_CELL_TAP_DURATION || tokens.LIST_CELL_TAP_DURATION);
+      document.documentElement.style.setProperty('--list-cell-radio-duration', customTokens.LIST_CELL_RADIO_DURATION || tokens.LIST_CELL_RADIO_DURATION);
+      document.documentElement.style.setProperty('--list-cell-easing-standard', customTokens.LIST_CELL_EASING_STANDARD || tokens.LIST_CELL_EASING_STANDARD);
+      
+      // Update transition shorthand variables
+      const hoverDuration = customTokens.LIST_CELL_HOVER_DURATION || tokens.LIST_CELL_HOVER_DURATION;
+      const tapDuration = customTokens.LIST_CELL_TAP_DURATION || tokens.LIST_CELL_TAP_DURATION;
+      const radioDuration = customTokens.LIST_CELL_RADIO_DURATION || tokens.LIST_CELL_RADIO_DURATION;
+      const easing = customTokens.LIST_CELL_EASING_STANDARD || tokens.LIST_CELL_EASING_STANDARD;
+      
+      document.documentElement.style.setProperty('--list-cell-hover-transition', `background-color ${hoverDuration} ${easing}`);
+      document.documentElement.style.setProperty('--list-cell-tap-transition', `all ${tapDuration} ${easing}`);
+      document.documentElement.style.setProperty('--list-cell-radio-transition', `all ${radioDuration} ${easing}`);
+    }
+  }, [customTokens]);
+  
+  // Get transition values from tokens
+  const getTransitionValues = () => {
+    if (customTokens) {
+      return {
+        hoverDuration: customTokens.LIST_CELL_HOVER_DURATION || tokens.LIST_CELL_HOVER_DURATION,
+        tapDuration: customTokens.LIST_CELL_TAP_DURATION || tokens.LIST_CELL_TAP_DURATION,
+        radioDuration: customTokens.LIST_CELL_RADIO_DURATION || tokens.LIST_CELL_RADIO_DURATION,
+        standardEasing: customTokens.LIST_CELL_EASING_STANDARD || tokens.LIST_CELL_EASING_STANDARD,
+      };
+    } else {
+      return {
+        hoverDuration: tokens.LIST_CELL_HOVER_DURATION,
+        tapDuration: tokens.LIST_CELL_TAP_DURATION,
+        radioDuration: tokens.LIST_CELL_RADIO_DURATION,
+        standardEasing: tokens.LIST_CELL_EASING_STANDARD,
+      };
+    }
+  };
+  
+  // Get transition style based on current tokens
+  const getTransitionStyle = () => {
+    const transitionValues = getTransitionValues();
+    return `background-color ${transitionValues.hoverDuration} ${transitionValues.standardEasing}`;
+  };
   
   const handleToggle = (e) => {
     // Prevent any default behaviors
@@ -85,7 +133,7 @@ const Component = ({
         cursor: 'pointer',
         position: 'relative',
         backgroundColor: isPressed ? '#DEDFE3' : (isHovered ? '#F6F7F9' : 'var(--color_bg_control_primary_default, #fff)'),
-        transition: 'background-color 0.15s ease'
+        transition: getTransitionStyle()
       }}
       tabIndex="0" 
       aria-checked={isSelected}
@@ -123,7 +171,10 @@ const Component = ({
             <div className="checkbox-iconContainer-80d-9-1-0" style={{ position: 'relative' }}>
               <div 
                 className={`icon-root-864-6-0-3 checkbox-icon-044-9-1-0 list-cell-radio ${isSelected ? 'checkbox-icon-visible' : ''}`}
-                style={{ position: 'relative' }}
+                style={{ 
+                  position: 'relative',
+                  transition: `opacity ${getTransitionValues().radioDuration} ${getTransitionValues().standardEasing}, transform ${getTransitionValues().radioDuration} ${getTransitionValues().standardEasing}`
+                }}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" style={{ position: 'relative' }}>
                   <path fill="currentColor" fillRule="evenodd" d="M14.015 4.092a.863.863 0 0 1-.018 1.202l-6.58 6.513a1.232 1.232 0 0 1-1.755-.014L1.994 8.049a.863.863 0 0 1 0-1.203.822.822 0 0 1 1.179 0l3.378 3.448 6.285-6.22a.822.822 0 0 1 1.179.018Z" clipRule="evenodd"></path>
